@@ -44,6 +44,8 @@ var redirectController = require('./controllers/RedirectController')(redis);
 //Initialize routes
 var admin = require('./routes/admin.js')(frontendController, apiController);
 app.use('/admin', admin);
+var list = require('./routes/list.js')(frontendController, apiController);
+app.use('/list', list);
 var main = require('./routes/main.js')(rootRedirect, redirectController);
 app.use('/', main);
 app.use(function(req, res, next) {

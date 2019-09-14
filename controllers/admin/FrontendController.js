@@ -40,6 +40,16 @@ module.exports = function(redis, passport) {
     });
   };
 
+  FrontendController.list = function(req, res) {
+    Redirect.getAll(function(err, redirects) {
+      if (err)
+        res.status(500).send(err);
+      else {
+        res.status(200).render('admin/list', { redirects: redirects });
+      }
+    });
+  };
+
   FrontendController.createRedirect = function(req, res) {
     var key = req.body.key;
     var url = req.body.url;
