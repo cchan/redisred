@@ -9,12 +9,12 @@ html
       table.table.table-striped(style="table-layout: fixed;")
         tr
           th.col-sm-2 Key
-          th.col-sm-7 URL
-          th.col-sm-3(colspan=3) Clicks
+          th.col-sm-8 URL
+          th.col-sm-2 Clicks
         each redirect in redirects
           tr
             td.col-sm-2(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all;")
               a(href=("/"+redirect.key))=redirect.key
-            td.col-sm-7(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all;")
+            td.col-sm-8(style="overflow: hidden; text-overflow: ellipsis; word-break: keep-all;")
               a(href=redirect.url)= redirect.url
-            td.col-sm-1= redirect.clicks
+            td.col-sm-2= redirect.clicks
