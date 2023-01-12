@@ -50,11 +50,9 @@ To stop the server, `Ctrl+C`, and then:
 
 - `npm run stop-redis`
 
-## Deploy the app to heroku
+## Deploy the app to fly.io
 
-To deploy this to heroku, click this fancy button :)
-
-[<img src="https://www.herokucdn.com/deploy/button.png">](https://www.heroku.com/deploy/?template=https://github.com/Detry322/redisred)
+Ensure .env prod files are present in root directory, then run `fly deploy`
 
 ## Environment variables.
 

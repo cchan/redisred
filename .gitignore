@@ -11,7 +11,7 @@ pids
 node_modules
 
 # Env vars
-.env
+.env*
 
 # Redis database
 *.rdb

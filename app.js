@@ -27,18 +27,31 @@ var redis = new Redis(redisUrl);
 
 //Initialize the app
 var app = express();
-var redisSessionStore = new RedisStore({client: redis});
+var redisSessionStore = new RedisStore({ client: redis });
 app.set('views', './views');
 app.set('view engine', 'jade');
 app.use(favicon('./public/assets/favicon.png'));
 app.use(cookieParser());
-app.use(expressSession({ store: redisSessionStore, secret: sessionSecret, resave: true, saveUninitialized: true }));
+app.use(
+  expressSession({
+    store: redisSessionStore,
+    secret: sessionSecret,
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
 //Initialize controllers
-var frontendController = require('./controllers/admin/FrontendController')(redis, passport);
-var apiController = require('./controllers/admin/APIController')(redis, apiToken);
+var frontendController = require('./controllers/admin/FrontendController')(
+  redis,
+  passport,
+);
+var apiController = require('./controllers/admin/APIController')(
+  redis,
+  apiToken,
+);
 var redirectController = require('./controllers/RedirectController')(redis);
 
 //Initialize routes
@@ -48,16 +61,17 @@ var list = require('./routes/list.js')(frontendController, apiController);
 app.use('/list', list);
 var main = require('./routes/main.js')(rootRedirect, redirectController);
 app.use('/', main);
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.status(404).render('404');
 });
 
 // Start the server
-console.log('Connecting to redis...');
-redis.ping(function(err){
+console.log(`Connecting to redis for admin ${adminUsername}...`);
+redis.ping(function (err) {
   if (!err) {
     console.log('Connection successful. Server listening on port ' + port);
     app.listen(port);
+  } else {
+    console.error(`Redis connection failed: ${err}`);
   }
 });
-
